@@ -1,0 +1,9 @@
+<Solution>
+    <Configurations>
+        <Platform Name="Any CPU" />
+    </Configurations>
+    <Folder Name="/src/">
+    </Folder>
+    <Folder Name="/test/">
+    </Folder>
+</Solution>
