@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "startups",
+  "info": {
+    "singularName": "startup",
+    "pluralName": "startups",
+    "displayName": "Startup"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "startupId": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ImageURL": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "location": {
+      "type": "text"
+    },
+    "category": {
+        "type": "relation",
+        "relation": "manyToOne",
+        "target": "api::startup-category.startup-category"
+    }
+  }
+}
