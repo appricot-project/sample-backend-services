@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "startup_categories",
+  "info": {
+    "singularName": "startup-category",
+    "pluralName": "startup-categories",
+    "displayName": "Startup Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "categoryId": {
+      "type": "integer"
+    }
+  }
+}
