@@ -7,6 +7,8 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.TenantManagement;
+using PitchDesk.App.Keycloak;
+using Microsoft.Extensions.Configuration;
 
 namespace PitchDesk.App;
 
@@ -23,4 +25,23 @@ namespace PitchDesk.App;
 public class AppApplicationModule : AbpModule
 {
 
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        var configuration = context.Services.GetConfiguration();
+
+        ConfigureKeycloakOptions(context, configuration);
+    }
+
+    private void ConfigureKeycloakOptions(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        context.Services.Configure<KeycloakOptions>(options =>
+        {
+            options.Realm = configuration["Keycloak:realm"];
+            options.Url = configuration["Keycloak:url"];
+            options.AdminPassword = configuration["Keycloak:adminPassword"];
+            options.AdminUserName = configuration["Keycloak:adminUserName"];
+        });
+    }
 }
+
+
