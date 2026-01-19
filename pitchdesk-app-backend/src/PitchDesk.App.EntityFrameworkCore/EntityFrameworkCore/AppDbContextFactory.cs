@@ -17,8 +17,13 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         AppEfCoreEntityExtensionMappings.Configure();
 
         var builder = new DbContextOptionsBuilder<AppDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Default"));
-        
+            .UseNpgsql(configuration.GetConnectionString("Default"));
+
+#if DEBUG
+        builder.EnableSensitiveDataLogging();
+        builder.LogTo(Console.WriteLine);
+#endif
+
         return new AppDbContext(builder.Options);
     }
 
