@@ -20,7 +20,8 @@ namespace PitchDesk.App;
     typeof(AbpIdentityApplicationModule),
     typeof(AbpAccountApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule)
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpMapperlyModule)
     )]
 public class AppApplicationModule : AbpModule
 {
@@ -34,12 +35,13 @@ public class AppApplicationModule : AbpModule
 
     private void ConfigureKeycloakOptions(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.Configure<KeycloakOptions>(options =>
+        context.Services.Configure<KeycloakClientOptions>(options =>
         {
-            options.Realm = configuration["Keycloak:realm"];
-            options.Url = configuration["Keycloak:url"];
-            options.AdminPassword = configuration["Keycloak:adminPassword"];
-            options.AdminUserName = configuration["Keycloak:adminUserName"];
+            options.AuthenticationRealm = configuration["Keycloak:AuthenticationRealm"];
+            options.Realm = configuration["Keycloak:Realm"];
+            options.Url = configuration["Keycloak:Url"];
+            options.AdminPassword = configuration["Keycloak:AdminPassword"];
+            options.AdminUserName = configuration["Keycloak:AdminUserName"];
         });
     }
 }
