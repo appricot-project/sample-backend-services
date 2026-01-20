@@ -1,0 +1,15 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/PitchDesk.App.Application.Contracts/PitchDesk.App.Application.Contracts.csproj" />
+        <Project Path="src/PitchDesk.App.Application/PitchDesk.App.Application.csproj" />
+        <Project Path="src/PitchDesk.App.DbMigrator/PitchDesk.App.DbMigrator.csproj" />
+        <Project Path="src/PitchDesk.App.Domain.Shared/PitchDesk.App.Domain.Shared.csproj" />
+        <Project Path="src/PitchDesk.App.Domain/PitchDesk.App.Domain.csproj" />
+        <Project Path="src/PitchDesk.App.EntityFrameworkCore/PitchDesk.App.EntityFrameworkCore.csproj" />
+        <Project Path="src/PitchDesk.App.HttpApi.Client/PitchDesk.App.HttpApi.Client.csproj" />
+        <Project Path="src/PitchDesk.App.HttpApi/PitchDesk.App.HttpApi.csproj" />
+        <Project Path="src/PitchDesk.App.Web/PitchDesk.App.Web.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+    </Folder>
+</Solution>

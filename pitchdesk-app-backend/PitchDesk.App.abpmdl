@@ -1,0 +1,113 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "5.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.Account": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.Identity": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "10.0.1",
+      "isInstalled": true,
+      "creationTime": "12/09/2025 07:59:48 +00:00"
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "PitchDesk.App.Application": {
+      "path": "src/PitchDesk.App.Application/PitchDesk.App.Application.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.Application.Tests": {
+      "path": "test/PitchDesk.App.Application.Tests/PitchDesk.App.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.Domain.Shared": {
+      "path": "src/PitchDesk.App.Domain.Shared/PitchDesk.App.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.Application.Contracts": {
+      "path": "src/PitchDesk.App.Application.Contracts/PitchDesk.App.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.HttpApi": {
+      "path": "src/PitchDesk.App.HttpApi/PitchDesk.App.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.HttpApi.Client": {
+      "path": "src/PitchDesk.App.HttpApi.Client/PitchDesk.App.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.Web": {
+      "path": "src/PitchDesk.App.Web/PitchDesk.App.Web.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.Web.Tests": {
+      "path": "test/PitchDesk.App.Web.Tests/PitchDesk.App.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.EntityFrameworkCore.Tests": {
+      "path": "test/PitchDesk.App.EntityFrameworkCore.Tests/PitchDesk.App.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.EntityFrameworkCore": {
+      "path": "src/PitchDesk.App.EntityFrameworkCore/PitchDesk.App.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.TestBase": {
+      "path": "test/PitchDesk.App.TestBase/PitchDesk.App.TestBase.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.Domain.Tests": {
+      "path": "test/PitchDesk.App.Domain.Tests/PitchDesk.App.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/PitchDesk.App.HttpApi.Client.ConsoleTestApp/PitchDesk.App.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "PitchDesk.App.DbMigrator": {
+      "path": "src/PitchDesk.App.DbMigrator/PitchDesk.App.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "PitchDesk.App.Domain": {
+      "path": "src/PitchDesk.App.Domain/PitchDesk.App.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
