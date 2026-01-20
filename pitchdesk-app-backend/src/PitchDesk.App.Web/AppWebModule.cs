@@ -16,6 +16,8 @@ using PitchDesk.App.Web.HealthChecks;
 using PitchDesk.App.Web.Menus;
 using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.RateLimiting;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
@@ -93,10 +95,10 @@ public class AppWebModule : AbpModule
                 options.AddDevelopmentEncryptionAndSigningCertificate = false;
             });
 
-            PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
+            PreConfigure<OpenIddictServerBuilder>(builder =>
             {
-                serverBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", configuration["AuthServer:CertificatePassPhrase"]!);
-                serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
+                builder.AddSigningCertificate(GetSigningCertificate(hostingEnvironment, configuration));
+                builder.AddEncryptionCertificate(GetEncryptionCertificate(hostingEnvironment, configuration));
             });
         }
     }
@@ -305,4 +307,57 @@ public class AppWebModule : AbpModule
         });
     }
 
+    private X509Certificate2 GetEncryptionCertificate(IWebHostEnvironment hostingEnv, IConfiguration configuration)
+    {
+        var fileName = configuration["SigningCertificatePath"] ?? Path.Combine("certs", "encryption.pfx");
+        var passPhrase = configuration["SigningCertificatePassPhrase"] ?? "780F3C11-0A96-40DE-B335-9848BE88C77D";
+        var filePath = Path.Combine(hostingEnv.ContentRootPath, fileName);
+
+        if (!File.Exists(filePath))
+        {
+            using var algorithm = RSA.Create(keySizeInBits: 2048);
+
+            var subject = new X500DistinguishedName("CN=Appricot Encryption Certificate");
+            var request = new CertificateRequest(subject, algorithm, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+            request.CertificateExtensions.Add(new X509KeyUsageExtension(X509KeyUsageFlags.KeyEncipherment, critical: true));
+
+            var certificate = request.CreateSelfSigned(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow.AddYears(2));
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                var fodlerPath = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(fodlerPath))
+                    Directory.CreateDirectory(fodlerPath);
+            }
+            File.WriteAllBytes(filePath, certificate.Export(X509ContentType.Pfx, passPhrase));
+        }
+
+        return new X509Certificate2(filePath, passPhrase);
+    }
+
+    private X509Certificate2 GetSigningCertificate(IWebHostEnvironment hostingEnv, IConfiguration configuration)
+    {
+        var fileName = configuration["SigningCertificatePath"] ?? Path.Combine("certs", "signing.pfx");
+        var passPhrase = configuration["SigningCertificatePassPhrase"] ?? "780F3C11-0A96-40DE-B335-9848BE88C77D";
+        var filePath = Path.Combine(hostingEnv.ContentRootPath, fileName);
+
+        if (!string.IsNullOrEmpty(filePath) && !File.Exists(filePath))
+        {
+            using var algorithm = RSA.Create(keySizeInBits: 2048);
+
+            var subject = new X500DistinguishedName("CN=Appricot Signing  Certificate");
+            var request = new CertificateRequest(subject, algorithm, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+            request.CertificateExtensions.Add(new X509KeyUsageExtension(X509KeyUsageFlags.DigitalSignature, critical: true));
+
+            var certificate = request.CreateSelfSigned(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow.AddYears(2));
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                var fodlerPath = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(fodlerPath))
+                    Directory.CreateDirectory(fodlerPath);
+            }
+            File.WriteAllBytes(filePath, certificate.Export(X509ContentType.Pfx, passPhrase));
+        }
+
+        return new X509Certificate2(filePath, passPhrase);
+    }
 }
