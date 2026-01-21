@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Server.AspNetCore;
 using OpenIddict.Validation.AspNetCore;
+using PitchDesk.App.Data;
 using PitchDesk.App.EntityFrameworkCore;
 using PitchDesk.App.Localization;
 using PitchDesk.App.MultiTenancy;
@@ -19,6 +20,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.RateLimiting;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
@@ -286,6 +288,14 @@ public class AppWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+    }
+
+    public override async Task OnPostApplicationInitializationAsync(
+        ApplicationInitializationContext context)
+    {
+        await context.ServiceProvider
+            .GetRequiredService<AppDbMigrationService>()
+            .MigrateAsync();
     }
 
     private void ConfigureRateLimiting(ServiceConfigurationContext context, IConfiguration configuration)
