@@ -7,6 +7,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+RUN apt-get update && apt-get install nodejs npm -y
+RUN dotnet tool install Volo.Abp.Cli --tool-path /app/tools --version 10
+RUN npm i -g yarn
+
 COPY common.props common.props
 COPY NuGet.Config NuGet.Config
 COPY PitchDesk.App.slnx PitchDesk.App.slnx
@@ -21,6 +25,11 @@ COPY src/PitchDesk.App.HttpApi.Client/PitchDesk.App.HttpApi.Client.csproj src/Pi
 COPY src/PitchDesk.App.Web/PitchDesk.App.Web.csproj src/PitchDesk.App.Web/PitchDesk.App.Web.csproj
 
 RUN dotnet restore src/PitchDesk.App.Web/PitchDesk.App.Web.csproj
+
+COPY src/PitchDesk.App.Web/package.json src/PitchDesk.App.Web/package.json
+COPY src/PitchDesk.App.Web/wwwroot src/PitchDesk.App.Web/wwwroot
+RUN --mount=type=cache,id=npm,target=/root/.npm \
+    /app/tools/abp install-libs --working-directory src/PitchDesk.App.Web
 
 COPY . .
 
