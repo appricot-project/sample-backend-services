@@ -487,8 +487,8 @@ export interface ApiStartupStartup extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     location: Schema.Attribute.Text;
+    ownerEmail: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
-    startupId: Schema.Attribute.Integer;
     title: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

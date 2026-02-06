@@ -11,9 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "startupId": {
-      "type": "integer"
-    },
     "title": {
       "type": "text"
     },
@@ -34,9 +31,12 @@
       "type": "text"
     },
     "category": {
-        "type": "relation",
-        "relation": "manyToOne",
-        "target": "api::startup-category.startup-category"
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::startup-category.startup-category"
+    },
+    "ownerEmail": {
+      "type": "text"
     }
   }
 }
