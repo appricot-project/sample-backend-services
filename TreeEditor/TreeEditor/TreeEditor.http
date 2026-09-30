@@ -1,0 +1,41 @@
+@TreeEditor_HostAddress = http://localhost:5272
+
+GET {{TreeEditor_HostAddress}}/api/tree/roots
+Accept: application/json
+
+###
+
+GET {{TreeEditor_HostAddress}}/api/tree/nodes/10000000-0000-0000-0000-000000000001/children
+Accept: application/json
+
+###
+
+GET {{TreeEditor_HostAddress}}/api/tree/nodes/10000000-0000-0000-0000-000000000005
+Accept: application/json
+
+###
+
+POST {{TreeEditor_HostAddress}}/api/tree/apply
+Content-Type: application/json
+
+{
+  "updates": [
+    {
+      "id": "10000000-0000-0000-0000-000000000005",
+      "value": "ThinkPad updated",
+      "version": 1
+    }
+  ],
+  "creates": [
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "parentId": "10000000-0000-0000-0000-000000000005",
+      "value": "New model"
+    }
+  ],
+  "deletes": []
+}
+
+###
+
+POST {{TreeEditor_HostAddress}}/api/tree/reset

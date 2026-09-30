@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TreeEditor.Api.Tests/TreeEditor.Api.Tests.csproj" />
+  <Project Path="TreeEditor/TreeEditor.csproj" />
+</Solution>
