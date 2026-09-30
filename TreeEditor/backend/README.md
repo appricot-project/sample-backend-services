@@ -7,14 +7,14 @@ Backend for the tree editor assignment. The API exposes lazy database-tree reads
 - .NET 10 SDK
 - Docker Desktop
 
-The project database is exposed on host port `5433` to avoid conflicts with an existing local PostgreSQL instance.
+The project database is exposed on host port `5434` to avoid conflicts with existing local PostgreSQL instances.
 
 ## Run locally
 
 Start PostgreSQL:
 
 ```powershell
-docker compose up -d
+docker compose up -d postgres
 ```
 
 Start the API:
@@ -30,6 +30,20 @@ Swagger UI is available at:
 ```text
 http://localhost:5272/swagger
 ```
+
+## Run API and PostgreSQL in Docker
+
+```powershell
+docker compose up --build
+```
+
+The containerized API is available at:
+
+```text
+http://localhost:8080/swagger
+```
+
+Inside Docker the API connects to PostgreSQL using the `postgres` service name. Migrations and sample data are applied automatically in Development mode.
 
 If Swagger shows `Failed to fetch`, make sure the page was opened through the running API URL, not as a local `file://` page. For the first local run, use the `http` launch profile. The HTTPS profile may require trusting the local .NET development certificate in the browser.
 
