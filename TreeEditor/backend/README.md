@@ -11,10 +11,10 @@ The project database is exposed on host port `5434` to avoid conflicts with exis
 
 ## Run locally
 
-Start PostgreSQL:
+Start PostgreSQL (the compose file is in the parent `TreeEditor` folder):
 
 ```powershell
-docker compose up -d postgres
+docker compose -f ..\docker-compose.yml up -d postgres
 ```
 
 Start the API:
@@ -31,9 +31,12 @@ Swagger UI is available at:
 http://localhost:5272/swagger
 ```
 
-## Run API and PostgreSQL in Docker
+## Run in Docker
+
+The whole stack (PostgreSQL, API, UI) runs from the parent `TreeEditor` folder:
 
 ```powershell
+cd ..
 docker compose up --build
 ```
 

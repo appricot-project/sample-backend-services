@@ -2,12 +2,13 @@
 
 A tree editor with two views: a lazily loaded database tree and a local cache where you edit nodes before applying them to the database.
 
-Code: [`TreeEditor/backend`](TreeEditor/backend) (ASP.NET Core, EF Core, PostgreSQL) and [`TreeEditor/frontend`](TreeEditor/frontend) (React, TypeScript, jotai, TanStack Query, MUI, Tailwind).
+Code: [`backend`](backend) (ASP.NET Core, EF Core, PostgreSQL) and [`frontend`](frontend) (React, TypeScript, jotai, TanStack Query, MUI, Tailwind).
 
 ## Run
 
+From this folder (`TreeEditor`):
+
 ```bash
-cd TreeEditor/backend
 docker compose up --build
 ```
 
