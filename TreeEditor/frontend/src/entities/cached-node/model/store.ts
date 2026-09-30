@@ -2,7 +2,9 @@ import { atom, useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import type { CacheState } from './types';
 
-export const cacheAtom = atomWithStorage<CacheState>('tree-editor-cache', {}, undefined, {
+export const CACHE_STORAGE_KEY = 'tree-editor-cache';
+
+export const cacheAtom = atomWithStorage<CacheState>(CACHE_STORAGE_KEY, {}, undefined, {
   getOnInit: true,
 });
 

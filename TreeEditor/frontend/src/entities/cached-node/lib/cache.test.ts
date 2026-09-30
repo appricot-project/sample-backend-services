@@ -3,7 +3,6 @@ import type { TreeNodeDto } from '@/shared/api';
 import type { CacheState } from '../model/types';
 import {
   addChild,
-  applySucceeded,
   buildApplyRequest,
   buildForest,
   editValue,
@@ -86,18 +85,5 @@ describe('cached tree', () => {
       { id: 'n2', parentId: 'n1', value: 'Two edited' },
     ]);
     expect(cache.n2.ancestorIds).toEqual(['a', 'n1']);
-  });
-
-  it('syncs versions after a successful apply', () => {
-    let cache = load({}, 'a', null, []);
-    cache = load(cache, 'b', 'a', ['a']);
-    cache = addChild(cache, 'a', 'n1', 'New');
-    cache = editValue(cache, 'b', 'Edited');
-
-    cache = applySucceeded(cache);
-    expect(cache.a.version).toBe(1);
-    expect(cache.b).toMatchObject({ version: 2, originalValue: 'Edited' });
-    expect(cache.n1).toMatchObject({ isNew: false, version: 1 });
-    expect(buildApplyRequest(cache)).toEqual({ updates: [], creates: [], deletes: [] });
   });
 });

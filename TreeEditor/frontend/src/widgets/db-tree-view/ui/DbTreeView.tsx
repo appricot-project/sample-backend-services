@@ -35,8 +35,17 @@ export function DbTreeView() {
 }
 
 function DbChildren({ parentId }: { parentId: string | null }) {
-  const { data, isPending, isError, error, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useDbChildren(parentId);
+  const {
+    data,
+    isPending,
+    isError,
+    error,
+    refetch,
+    isRefetching,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useDbChildren(parentId);
 
   if (isPending) {
     return (
@@ -53,7 +62,21 @@ function DbChildren({ parentId }: { parentId: string | null }) {
       <TreeItem
         itemId={serviceId(parentId, 'error')}
         disableSelection
-        label={<span className="text-red-600">{error.message}</span>}
+        label={
+          <span className="flex items-center gap-2 text-red-600">
+            {error.message}
+            <Button
+              size="small"
+              disabled={isRefetching}
+              onClick={(event) => {
+                event.stopPropagation();
+                void refetch();
+              }}
+            >
+              Retry
+            </Button>
+          </span>
+        }
       />
     );
   }

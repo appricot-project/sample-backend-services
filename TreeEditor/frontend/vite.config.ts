@@ -11,7 +11,14 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/api': process.env.API_URL ?? 'http://localhost:5272',
+      '/api': {
+        target: process.env.API_URL ?? 'http://localhost:5272',
+        // Match nginx: report an unreachable API as 502 instead of Vite's default 500.
+        configure: (proxy) =>
+          proxy.on('error', (_error, _req, res) => {
+            if ('writeHead' in res && !res.headersSent) res.writeHead(502).end();
+          }),
+      },
     },
   },
   test: {

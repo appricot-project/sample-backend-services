@@ -12,11 +12,25 @@ interface ProblemDetails {
   detail?: string;
 }
 
+const UNAVAILABLE_MESSAGE = 'Server is unavailable. Check that the API is running.';
+
+// The proxy in front of the API (nginx / Vite dev server) answers with these when the API is down.
+const PROXY_ERROR_STATUSES = [502, 503, 504];
+
 export async function http<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`/api${path}`, {
-    ...init,
-    headers: { 'Content-Type': 'application/json', ...init?.headers },
-  });
+  let response: Response;
+  try {
+    response = await fetch(`/api${path}`, {
+      ...init,
+      headers: { 'Content-Type': 'application/json', ...init?.headers },
+    });
+  } catch {
+    throw new ApiError(UNAVAILABLE_MESSAGE, 0);
+  }
+
+  if (PROXY_ERROR_STATUSES.includes(response.status)) {
+    throw new ApiError(UNAVAILABLE_MESSAGE, response.status);
+  }
 
   if (!response.ok) {
     const problem = (await response.json().catch(() => null)) as ProblemDetails | null;

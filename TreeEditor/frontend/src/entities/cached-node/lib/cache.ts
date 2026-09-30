@@ -118,27 +118,3 @@ export function buildApplyRequest(cache: CacheState): ApplyChangesRequest {
 
   return request;
 }
-
-export const hasPendingChanges = (cache: CacheState) => {
-  const request = buildApplyRequest(cache);
-  return request.updates.length + request.creates.length + request.deletes.length > 0;
-};
-
-/** Mirrors the backend: new nodes start at version 1, a changed value bumps the version. */
-export function applySucceeded(cache: CacheState): CacheState {
-  const next: CacheState = {};
-
-  for (const node of Object.values(cache)) {
-    if (node.isDeleted) {
-      next[node.id] = node;
-    } else if (node.isNew) {
-      next[node.id] = { ...node, isNew: false, version: 1, originalValue: node.value };
-    } else if (isModified(node)) {
-      next[node.id] = { ...node, version: node.version + 1, originalValue: node.value };
-    } else {
-      next[node.id] = node;
-    }
-  }
-
-  return next;
-}

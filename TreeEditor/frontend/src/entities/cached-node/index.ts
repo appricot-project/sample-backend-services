@@ -1,14 +1,13 @@
 export {
   addChild,
-  applySucceeded,
   buildApplyRequest,
   buildForest,
   editValue,
-  hasPendingChanges,
   loadNode,
   markDeleted,
 } from './lib/cache';
 export {
+  CACHE_STORAGE_KEY,
   cacheAtom,
   collapsedCachedIdsAtom,
   selectedCachedIdAtom,
